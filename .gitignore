@@ -1,0 +1,16 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# ANT
+build/
+dist/
+
+# IDEs
+.idea/
+.project
+.settings/
+*.iml

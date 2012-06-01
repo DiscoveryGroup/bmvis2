@@ -1,0 +1,89 @@
+package biomine.bmvis2;
+
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
+
+/**
+ * Draws straight lines between nodes and edgenodes
+ * 
+ * 
+ * @author alhartik
+ *
+ */
+public class LineEdgeRenderer extends EdgeRenderer{
+
+	VisualEdge e;
+
+	public void drawEdge(Graphics2D g,VisualEdge e){
+		this.e=e;
+		VisualNode fromAnc = e.getFrom();//.getVisibleAncestor();
+		VisualNode toAnc = e.getTo();//.getVisibleAncestor();
+		
+		if(fromAnc==toAnc){
+			return;
+		}
+		
+		Vec2 tp = toAnc.getPos();
+		Vec2 fp = fromAnc.getPos();
+
+		Line2D.Double lineFrom = new Line2D.Double(fp.toPoint(), e.getPos().toPoint());
+		Line2D.Double lineTo = new Line2D.Double(tp.toPoint(),e.getPos().toPoint()); 
+
+        this.setWeightAndColor(g, e);
+		g.draw(lineFrom);
+		g.draw(lineTo);
+		
+		//ARROWHEAD
+		if(!e.isSymmetric()){
+
+			double left = 0.0;
+			double right =1;
+			//Vec2 cp = Vec2:;
+			VisualNode to = e.getTo();
+			MutableVec2 cp = new MutableVec2(0,0);
+			Point2D p2 = new Point2D.Double();
+			for(int i=0;i<30;i++){
+				double ct = (left+right)/2;
+				cp.set(e.getPos());
+				cp.scale((1-ct)/ct);
+				cp.add(tp);
+				cp.scale(ct);
+				
+				//p2.setLocation(cp.x,cp.y);
+				
+				if(to.containsPoint(cp.toVec2())){
+					right = ct;
+				}else{
+					left = ct;
+				}
+			}
+			
+			Path2D.Double path = new Path2D.Double();
+			tp = cp.toVec2();
+			
+			 
+			
+			path.moveTo(tp.x,tp.y);
+			
+			//strange vector calc
+			//for proper arrowhead
+				
+			Vec2 d = tp.minus(e.getPos().scaled(1-left).plus(tp.scaled(left)));
+			d = d.scaled(1/d.length());
+			Vec2 nd = d.normal();
+			d = d.scaled(12);
+			
+			nd = nd.scaled(6);
+			path.lineTo(tp.x-d.x+nd.x,tp.y-d.y+nd.y);
+			path.lineTo(tp.x-d.x-nd.x,tp.y-d.y-nd.y);
+			path.lineTo(tp.x,tp.y);
+			g.fill(path);
+			
+		//	Arc2D.Double ball = new Arc2D.Double(tp.x-10,tp.y-10,20,20,0,365,Arc2D.PIE);
+			//g.fill(ball);		
+		}
+	}
+
+}

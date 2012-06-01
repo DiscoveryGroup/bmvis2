@@ -1,0 +1,147 @@
+<project name="bmvis2"
+         default="dist-deep"
+         xmlns:ac="bmvis2:antlib:net.sf.antcontrib">
+
+    <!--
+      This project depends on other projects. Please consult section
+      Dependencies below and make sure to set any environment variables and/or
+      properties documented there.
+     -->
+
+    <description>
+        BMVis2 graph visualizer in Java.
+    </description>
+
+    <property environment="env"/>
+    <property name="lib.dir" location="lib"/>
+
+    <!-- Ant Contrib (ac:) tasks-->
+    <taskdef uri="${ant.project.name}:antlib:net.sf.antcontrib"
+             resource="net/sf/antcontrib/antcontrib.properties"
+             classpath="${lib.dir}/ext/ant-contrib/ant-contrib.jar"/>
+
+    <property name="project.title" value="BMVis2"/>
+    <property name="project.name" value="bmvis2"/>
+    <property name="project.vendor" value="biomine"/>
+
+    <!-- Find out SVN revision and use it as the project version -->
+    <exec executable="svn" output="svn.properties">
+        <arg value="info"/>
+    </exec>
+    <property prefix="svn" file="svn.properties"/>
+
+    <property name="project.version" value="${svn.Revision}"/>
+    <!-- <property name="project.version" value="1.999.0.0"/> -->
+    <!-- <echo>Using project version ${project.version}</echo> -->
+
+    <property name="doc.packages" value="biomine.bmvis2.*"/>
+
+    <property name="jar.main-class" value="biomine.bmvis2.Vis"/>
+    <property name="srcdist.includes.extras" value="*.txt"/>
+
+    <property name="deploy.files.extras.list" value="bmvis2_version"/>
+    <property name="deploy.includes" value="**/*.png,**/*.svg,**/*.html"/>
+
+    <!-- - - - - - - - -
+      Dependencies:
+      - - - - - - - - -->
+
+    <!--
+      BIOMINE_JAVA_BUILD_ROOT
+       - dependencies are by default looked for on the path specified by this
+         environment variable (e.g. "BIOMINE_JAVA_BUILD_ROOT/biomine-module")
+       - default: ".."
+     -->
+    <ac:if>
+        <isset property="env.BIOMINE_JAVA_BUILD_ROOT"/>
+        <then>
+            <property name="biomine.build.dir"
+                      location="${env.BIOMINE_JAVA_BUILD_ROOT}"/>
+        </then>
+    </ac:if>
+    <property name="biomine.build.dir" location=".."/>
+
+    <!--
+      Biomine Ant:
+       - default: "BIOMINE_JAVA_BUILD_ROOT/biomine-ant"
+       - point environment variable "BIOMINE_ANT_ROOT"
+         or Ant property "biomine-ant.dir" to the module directory
+      -->
+    <ac:if>
+        <isset property="env.BIOMINE_ANT_ROOT"/>
+        <then>
+            <property name="biomine-ant.dir"
+                      location="${env.BIOMINE_ANT_ROOT}"/>
+        </then>
+    </ac:if>
+    <property name="biomine-ant.dir"
+              location="${biomine.build.dir}/biomine-ant"/>
+    <property name="biomine-ant.imports.dir"
+              location="${biomine-ant.dir}/imports"/>
+
+    <import file="${biomine-ant.imports.dir}/java-deps-properties.xml"/>
+    <import file="${biomine-ant.imports.dir}/java-deps-targets.xml"/>
+
+    <!--
+      BMGraph Java:
+       - default: "BIOMINE_JAVA_BUILD_ROOT/bmgraph-java"
+       - point environment variable "BMGRAPH_JAVA_ROOT"
+         or Ant property "bmgraph-java.dir" to the module directory
+      -->
+    <ac:if>
+        <isset property="env.BMGRAPH_JAVA_ROOT"/>
+        <then>
+            <property name="bmgraph-java.dir"
+                      location="${env.BMGRAPH_JAVA_ROOT}"/>
+        </then>
+    </ac:if>
+    <property name="bmgraph-java.dir"
+              location="${biomine.build.dir}/bmgraph-java"/>
+    <property name="deps.ant.bmgraph-java.project.name" value="bmgraph-java"/>
+    <property name="deps.ant.bmgraph-java.ant.file.dir"
+              location="${bmgraph-java.dir}"/>
+
+    <property name="deps.jar.json_simple.path"
+              location="${lib.dir}/ext/json_simple-1.1.jar"/>
+
+    <property name="deps.jar.commons_cli.path"
+              location="${lib.dir}/ext/commons-cli-1.2.jar"/>
+
+    <!-- - - - - -
+         Targets:
+      - - - - - - -->
+
+    <property name="help.target.run"
+              value="launch BMVis and open test.bmg"/>
+    <target name="run"
+            depends="dist-deep"
+            description="launch BMVis and open test.bmg">
+        <java classname="${jar.main-class}" fork="true">
+            <classpath>
+                <path refid="classpath.build"/>
+                <pathelement location="${jar.path}"/>
+            </classpath>
+            <sysproperty key="DEBUG" value="true"/>
+            <jvmarg value="-ea"/>
+            <arg value="test.bmg"/>
+        </java>
+    </target>
+
+    <property name="help.target.run-monolithic"
+              value="same as 'run', but using the one-JAR distribution"/>
+    <target name="run-monolithic"
+            depends="dist-monolithic"
+            description="same as 'run', but using the one-JAR distribution">
+        <java jar="${jar.monolithic.path}" fork="true">
+            <sysproperty key="DEBUG" value="true"/>
+            <jvmarg value="-ea"/>
+            <arg value="test.bmg"/>
+        </java>
+    </target>
+
+    <target name="dist-opt-monolithic" depends="dist-monolithic">
+        <jar destfile="${jar.monolithic.path}.optimized">
+            <zipfileset src="${jar.monolithic.path}" excludes="icons/**/*.*,help/**/*.*"/>
+        </jar>
+    </target>
+</project>
