@@ -1,147 +1,75 @@
-<project name="bmvis2"
-         default="dist-deep"
-         xmlns:ac="bmvis2:antlib:net.sf.antcontrib">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="bmvis2" default="default" basedir=".">
+    <description>Builds, tests, and runs the project bmvis2.</description>
+    <import file="nbproject/build-impl.xml"/>
     <!--
-      This project depends on other projects. Please consult section
-      Dependencies below and make sure to set any environment variables and/or
-      properties documented there.
-     -->
 
-    <description>
-        BMVis2 graph visualizer in Java.
-    </description>
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
 
-    <property environment="env"/>
-    <property name="lib.dir" location="lib"/>
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
 
-    <!-- Ant Contrib (ac:) tasks-->
-    <taskdef uri="${ant.project.name}:antlib:net.sf.antcontrib"
-             resource="net/sf/antcontrib/antcontrib.properties"
-             classpath="${lib.dir}/ext/ant-contrib/ant-contrib.jar"/>
+    (Targets beginning with '-' are not intended to be called on their own.)
 
-    <property name="project.title" value="BMVis2"/>
-    <property name="project.name" value="bmvis2"/>
-    <property name="project.vendor" value="biomine"/>
+    Example of inserting an obfuscator after compilation could look like this:
 
-    <!-- Find out SVN revision and use it as the project version -->
-    <exec executable="svn" output="svn.properties">
-        <arg value="info"/>
-    </exec>
-    <property prefix="svn" file="svn.properties"/>
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
 
-    <property name="project.version" value="${svn.Revision}"/>
-    <!-- <property name="project.version" value="1.999.0.0"/> -->
-    <!-- <echo>Using project version ${project.version}</echo> -->
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
 
-    <property name="doc.packages" value="biomine.bmvis2.*"/>
 
-    <property name="jar.main-class" value="biomine.bmvis2.Vis"/>
-    <property name="srcdist.includes.extras" value="*.txt"/>
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
 
-    <property name="deploy.files.extras.list" value="bmvis2_version"/>
-    <property name="deploy.includes" value="**/*.png,**/*.svg,**/*.html"/>
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
 
-    <!-- - - - - - - - -
-      Dependencies:
-      - - - - - - - - -->
+    An example of overriding the target for project execution could look like this:
 
-    <!--
-      BIOMINE_JAVA_BUILD_ROOT
-       - dependencies are by default looked for on the path specified by this
-         environment variable (e.g. "BIOMINE_JAVA_BUILD_ROOT/biomine-module")
-       - default: ".."
-     -->
-    <ac:if>
-        <isset property="env.BIOMINE_JAVA_BUILD_ROOT"/>
-        <then>
-            <property name="biomine.build.dir"
-                      location="${env.BIOMINE_JAVA_BUILD_ROOT}"/>
-        </then>
-    </ac:if>
-    <property name="biomine.build.dir" location=".."/>
+        <target name="run" depends="bmvis2-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
 
-    <!--
-      Biomine Ant:
-       - default: "BIOMINE_JAVA_BUILD_ROOT/biomine-ant"
-       - point environment variable "BIOMINE_ANT_ROOT"
-         or Ant property "biomine-ant.dir" to the module directory
-      -->
-    <ac:if>
-        <isset property="env.BIOMINE_ANT_ROOT"/>
-        <then>
-            <property name="biomine-ant.dir"
-                      location="${env.BIOMINE_ANT_ROOT}"/>
-        </then>
-    </ac:if>
-    <property name="biomine-ant.dir"
-              location="${biomine.build.dir}/biomine-ant"/>
-    <property name="biomine-ant.imports.dir"
-              location="${biomine-ant.dir}/imports"/>
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
 
-    <import file="${biomine-ant.imports.dir}/java-deps-properties.xml"/>
-    <import file="${biomine-ant.imports.dir}/java-deps-targets.xml"/>
+    -->
 
-    <!--
-      BMGraph Java:
-       - default: "BIOMINE_JAVA_BUILD_ROOT/bmgraph-java"
-       - point environment variable "BMGRAPH_JAVA_ROOT"
-         or Ant property "bmgraph-java.dir" to the module directory
-      -->
-    <ac:if>
-        <isset property="env.BMGRAPH_JAVA_ROOT"/>
-        <then>
-            <property name="bmgraph-java.dir"
-                      location="${env.BMGRAPH_JAVA_ROOT}"/>
-        </then>
-    </ac:if>
-    <property name="bmgraph-java.dir"
-              location="${biomine.build.dir}/bmgraph-java"/>
-    <property name="deps.ant.bmgraph-java.project.name" value="bmgraph-java"/>
-    <property name="deps.ant.bmgraph-java.ant.file.dir"
-              location="${bmgraph-java.dir}"/>
-
-    <property name="deps.jar.json_simple.path"
-              location="${lib.dir}/ext/json_simple-1.1.jar"/>
-
-    <property name="deps.jar.commons_cli.path"
-              location="${lib.dir}/ext/commons-cli-1.2.jar"/>
-
-    <!-- - - - - -
-         Targets:
-      - - - - - - -->
-
-    <property name="help.target.run"
-              value="launch BMVis and open test.bmg"/>
-    <target name="run"
-            depends="dist-deep"
-            description="launch BMVis and open test.bmg">
-        <java classname="${jar.main-class}" fork="true">
-            <classpath>
-                <path refid="classpath.build"/>
-                <pathelement location="${jar.path}"/>
-            </classpath>
-            <sysproperty key="DEBUG" value="true"/>
-            <jvmarg value="-ea"/>
-            <arg value="test.bmg"/>
-        </java>
-    </target>
-
-    <property name="help.target.run-monolithic"
-              value="same as 'run', but using the one-JAR distribution"/>
-    <target name="run-monolithic"
-            depends="dist-monolithic"
-            description="same as 'run', but using the one-JAR distribution">
-        <java jar="${jar.monolithic.path}" fork="true">
-            <sysproperty key="DEBUG" value="true"/>
-            <jvmarg value="-ea"/>
-            <arg value="test.bmg"/>
-        </java>
-    </target>
-
-    <target name="dist-opt-monolithic" depends="dist-monolithic">
-        <jar destfile="${jar.monolithic.path}.optimized">
-            <zipfileset src="${jar.monolithic.path}" excludes="icons/**/*.*,help/**/*.*"/>
-        </jar>
-    </target>
 </project>
