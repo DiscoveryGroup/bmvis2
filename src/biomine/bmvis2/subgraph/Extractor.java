@@ -34,9 +34,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This is a dark business interlude. An attempt to reproduce leronen's
- * famously infamous Crawler.
- * <p/>
+ * Abstract superclass for subgraph extractors. 
  * Given a graph and knowledge of whether certain nodes are of interest
  * (scored between [-1,1] where -1 means the presence of a given node is not
  * wished for and 1 meaning the node should most probably be in the
