@@ -1,6 +1,36 @@
-BMVis2, a graph visualization tool
+This is BMVis², an interactive graph visualization and analysis
+program.
 
-This is the initial public version of BMVis2.  Build instructions and
-instructions for contributors will be provided soon.
+An automatically generated build script is available for use with
+Apache Ant.  Alternatively, you can build BMVis² within NetBeans by
+opening the provided project file.
 
-For copyright or license information, see COPYRIGHT and LICENSE files.
+BMVis² depends on bmgraph-java, which is available at
+https://github.com/DiscoveryGroup/bmgraph-java.  The build script
+assumes that bmgraph-java source is located in a sibling directory
+bmgraph-java.  In other words, if BMVis² sources are at
+/parent/dir/bmvis2, bmgraph-java sources are looked in
+/parent/dir/bmgraph-java.
+
+Copyright 2012 University of Helsinki.
+
+BMVis² is free software.  See the files COPYING and COPYING.LESSER for
+copying conditions.
+
+The included libraries are licensed as follows:
+
+* Apache Commons CLI (commons-cli-1.2.jar): Apache License 2.0, see
+  the file COPYING.ASL for conditions.
+
+* JSON.simple (json_simple-1.1.jar): Apache License 2.0, see the file
+  COPYING.ASL for conditions.
+
+* TestNG (testng-6.0.1.jar): Apache License 2.0, see the file
+  COPYING.ASL for conditions.
+
+* Java Interactive Profiler (jip-1.2-profile.jar): BSD License, see
+  the file COPYING.BSD for conditions.
+
+* SVG Salamander (svgSalamander-tiny.jar): Dual-licensed under LGPL
+  and BSD Licenses, see the files COPYING.LESSER and COPYING.BSD for
+  conditions.
