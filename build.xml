@@ -72,4 +72,24 @@
 
     -->
 
+    <property name="one-jar.dist.dir" location="lib/one-jar"/> 
+    <import file="${one-jar.dist.dir}/one-jar-ant-task.xml" optional="true" />
+
+    <target depends="jar" name="monolithic">
+      <fail unless="dist.monolithic.jar">dist.monolithic.jar-property must be set!</fail>
+      <fail unless="reference.bmgraph-java.jar">reference.bmgraph-java.jar-property must be set!</fail>
+
+      <one-jar destfile="${dist.monolithic.jar}" manifest="monolithic.mf">
+        <main jar="${dist.jar}"/>
+
+        <lib>
+	  <fileset dir="lib">
+	    <include name="commons-cli-1.2.jar"/>
+	    <include name="svgSalamander-tiny.jar"/>
+	  </fileset>
+	  <fileset file="${reference.bmgraph-java.jar}"/>
+        </lib>
+      </one-jar>
+    </target>
+
 </project>

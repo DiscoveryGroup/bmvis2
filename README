@@ -34,3 +34,6 @@ The included libraries are licensed as follows:
 * SVG Salamander (svgSalamander-tiny.jar): Dual-licensed under LGPL
   and BSD Licenses, see the files COPYING.LESSER and COPYING.BSD for
   conditions.
+
+* One-Jar (lib/one-jar directory): BSD License, see the file
+  COPYING.BSD for conditions.
