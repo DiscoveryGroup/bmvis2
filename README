@@ -14,8 +14,9 @@ bmgraph-java.  In other words, if BMVis² sources are at
 
 Copyright 2012 University of Helsinki.
 
-BMVis² is free software.  See the files COPYING and COPYING.LESSER for
-copying conditions.
+BMVis² is free software licensed under the GNU Lesser General Public
+License (LGPL).  See the files COPYING and COPYING.LESSER for copying
+conditions.
 
 The included libraries are licensed as follows:
 
