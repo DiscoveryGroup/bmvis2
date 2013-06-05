@@ -36,10 +36,10 @@ public class Help {
 
 	static {
 		try {
-            ResourceUtils.printResourceFiles(Vis.class, "resources/");
-            URL u = Vis.class.getResource("resources/mousehelp.html");
+            ResourceUtils.printResourceFiles(Vis.class, "");
+            URL u = Vis.class.getResource("/mousehelp.html");
             Logging.debug("ui", "u: " + u + ",  u.getFile(): ");
-            File f = new File("resources/mousehelp.html");
+            File f = new File("mousehelp.html");
 			BufferedReader br = new BufferedReader(new FileReader(f));
 			try {
 				StringBuilder bld = new StringBuilder();

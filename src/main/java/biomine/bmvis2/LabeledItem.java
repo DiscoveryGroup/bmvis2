@@ -68,9 +68,9 @@ public class LabeledItem extends LayoutItem {
     static {
         pinImage = new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR);
         try {
-            InputStream pinStream = LabeledItem.class.getResourceAsStream("/resources/pin.png");
+            InputStream pinStream = LabeledItem.class.getResourceAsStream("/pin.png");
             if (pinStream == null) {
-                pinStream = new FileInputStream(new File("/resources/pin.png"));
+                pinStream = new FileInputStream(new File("/pin.png"));
             }
             pinImage = ImageIO.read(pinStream);
         } catch (Exception e) {
@@ -160,7 +160,7 @@ public class LabeledItem extends LayoutItem {
             double sz = 16;
 
             try {
-                SVGDiagram diagram = ResourceUtils.getSVGDiagramByPath("/resources/thumbtack.svg");
+                SVGDiagram diagram = ResourceUtils.getSVGDiagramByPath("/thumbtack.svg");
                 int x = (int) (shape.getX() + shape.getWidth() - 12);
                 int y = (int) (shape.getY() - 11);
                 Graphics2D pinGraphics = (Graphics2D) g.create(x, y, 24, 19);
