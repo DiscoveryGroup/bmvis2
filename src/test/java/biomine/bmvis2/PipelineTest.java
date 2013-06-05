@@ -89,6 +89,7 @@ public class PipelineTest {
         return new StreamGraphSource(bs, "Graph");
     }
 
+    /*
     @BeforeMethod
     public void setUp() throws Exception {
         GraphControls c = new DummyGraphControls();
@@ -118,4 +119,5 @@ public class PipelineTest {
         this.p.settingsChanged(true);
         Logging.info("pipeline", p.toString());
     }
+    */
 }
