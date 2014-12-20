@@ -4,14 +4,16 @@ program.
 BMVis² depends on bmgraph-java, which is available at
 https://github.com/DiscoveryGroup/bmgraph-java.
 
-When bmgraph-java is installed into the local artifact repository,
-one can build BMVis² simply by running Maven:
-  mvn package
+When bmgraph-java is installed into the local artifact repository, one
+can build BMVis² simply by running Maven:
+
+    mvn package
+
 or alternatively use some other build system and include the
-bmgraph-java sources in the build.  The classes need to be there
-at both compile and at run time.  In addition to bmgraph-java,
-BMVis depends on various other libraries, included as JAR-files
-in the lib-directory.
+bmgraph-java sources in the build.  The classes need to be there at
+both compile and at run time.  In addition to bmgraph-java, BMVis²
+depends on various other libraries, included as JAR-files in the
+lib-directory.
 
 Copyright 2012 University of Helsinki.
 
