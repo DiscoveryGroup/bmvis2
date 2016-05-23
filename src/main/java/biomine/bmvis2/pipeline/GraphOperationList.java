@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -27,6 +27,16 @@ import java.util.Collections;
 import biomine.bmvis2.color.GroupColoring;
 import biomine.bmvis2.edgesimplification.KappaSimplifier;
 import biomine.bmvis2.edgesimplification.XreosSimplifier;
+import biomine.bmvis2.pipeline.operations.BestPathHiderOperation;
+import biomine.bmvis2.pipeline.operations.EdgeGoodnessHider;
+import biomine.bmvis2.pipeline.operations.EdgeLabelOperation;
+import biomine.bmvis2.pipeline.operations.EdgeSimplificationOperation;
+import biomine.bmvis2.pipeline.operations.KMedoidsHighlight;
+import biomine.bmvis2.pipeline.operations.NodeColoringOperation;
+import biomine.bmvis2.pipeline.operations.NodeLabelOperation;
+import biomine.bmvis2.pipeline.operations.RepresentiveHighlightOperation;
+import biomine.bmvis2.pipeline.operations.SizeSliderOperation;
+import biomine.bmvis2.pipeline.operations.TwoPhaseExtractOperation;
 
 public class GraphOperationList {
 

@@ -18,17 +18,16 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
-import java.awt.TextArea;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
 import javax.swing.JComponent;
-import javax.swing.JList;
 import javax.swing.JTextArea;
 
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

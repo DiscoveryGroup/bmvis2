@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,6 +31,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
 
 import biomine.bmvis2.GraphCache;

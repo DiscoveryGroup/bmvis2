@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,6 +33,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import biomine.bmvis2.Logging;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
 
 import biomine.bmvis2.GraphCache;
@@ -41,7 +43,6 @@ import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualGraph.Change;
 import biomine.bmvis2.edgesimplification.SimplificationUtils;
 import biomine.bmvis2.edgesimplification.Simplifier;
-import biomine.bmvis2.utils.AlgoUtils;
 
 /**
  * Settings component of this operation should not run the pipeline.  This

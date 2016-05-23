@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,6 +32,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

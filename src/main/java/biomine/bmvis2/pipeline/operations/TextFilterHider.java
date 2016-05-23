@@ -18,12 +18,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
-import biomine.bmvis2.Logging;
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualGroupNode;
 import biomine.bmvis2.VisualNode;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
 
 import javax.swing.*;
@@ -32,10 +33,8 @@ import javax.swing.event.DocumentListener;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author ahinkka
- */
-public class TextFilterShower implements GraphOperation {
+
+public class TextFilterHider implements GraphOperation {
     String filter = "";
 
     public String getTitle() {
@@ -46,7 +45,7 @@ public class TextFilterShower implements GraphOperation {
         return null;
     }
 
-    public TextFilterShower(String filter) {
+    public TextFilterHider(String filter) {
         this.filter = filter;
     }
 
@@ -54,46 +53,48 @@ public class TextFilterShower implements GraphOperation {
      * TODO: how should this really work?  Should the nodes be made POIs instead of showing them and their neighbors?
      *
      * @param graph Processable graph
-     * @throws biomine.bmvis2.pipeline.GraphOperation.GraphOperationException
-     *
+     * @throws GraphOperationException
      */
     public void doOperation(VisualGraph graph) throws GraphOperationException {
-        if (this.getFilter().equals(""))
-            return;
-
+        Set<VisualNode> hiddenNodes = new HashSet<VisualNode>();
         Set<VisualNode> shownNodes = new HashSet<VisualNode>();
 
-        for (VisualNode node : graph.getAllNodes()) {
+        for (VisualNode node : graph.getNodes()) {
             if (node instanceof VisualGroupNode)
                 continue;
 
-            if (this.filter.equals("*")) {
+            if (this.filter.equals("")) {
                 shownNodes.add(node);
                 continue;
             }
 
-            for (String key : node.getBMNode().getAttributes().keySet())
+            for (String key : node.getBMNode().getAttributes().keySet()) {
                 if (new String(node.getBMNode().getAttributes().get(key)).toLowerCase().contains(this.filter.toLowerCase()))
                     shownNodes.add(node);
+                else
+                    hiddenNodes.add(node);
+            }
 
-            if (node.getName().toLowerCase().contains(this.filter.toLowerCase()) ||
-                    node.getType().toLowerCase().contains(this.filter) ||
-                    node.getId().toLowerCase().contains(this.filter))
-                shownNodes.add(node);
-
-            if (node.getId().equals(this.filter))
-                shownNodes.add(node);
-
-            // Logging.debug("graph_operation", "Node: " + node + ", to be shown: " + shownNodes.contains(node));
+            if (hiddenNodes.contains(node)) {
+                if (node.getName().toLowerCase().contains(this.filter.toLowerCase()) ||
+                        node.getType().toLowerCase().contains(this.filter) ||
+                        node.getId().toLowerCase().contains(this.filter)) {
+                    hiddenNodes.remove(node);
+                    shownNodes.add(node);
+                }
+            }
         }
 
-        HashSet<VisualNode> oneNeighborhood = new HashSet<VisualNode>();
-        for (VisualNode node : shownNodes)
+        Set<VisualNode> addToShown = new HashSet<VisualNode>();
+        for (VisualNode node : shownNodes) {
             for (VisualNode neighbor : node.getNeighbors())
-                oneNeighborhood.add(neighbor);
-        shownNodes.addAll(oneNeighborhood);
+                addToShown.add(neighbor);
 
-        graph.unHideNodes(shownNodes);
+        }
+        shownNodes.addAll(addToShown);
+
+        hiddenNodes.removeAll(shownNodes);
+        graph.setHiddenNodes(hiddenNodes);
     }
 
     public JComponent getSettingsComponent(final SettingsChangeCallback v, VisualGraph graph) {
@@ -104,9 +105,9 @@ public class TextFilterShower implements GraphOperation {
             private void update() {
                 if (filterField.getText().equals(""))
                     return;
-                if (filterField.getText().equals(TextFilterShower.this.filter))
+                if (filterField.getText().equals(TextFilterHider.this.filter))
                     return;
-                TextFilterShower.this.filter = filterField.getText();
+                TextFilterHider.this.filter = filterField.getText();
                 v.settingsChanged(false);
             }
 

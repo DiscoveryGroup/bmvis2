@@ -23,7 +23,7 @@ package biomine.bmvis2.ui.simple;
 import biomine.bmvis2.GraphArea;
 import biomine.bmvis2.color.ColorPalette;
 import biomine.bmvis2.color.DefaultNodeColoring;
-import biomine.bmvis2.pipeline.NodeColoringOperation;
+import biomine.bmvis2.pipeline.operations.NodeColoringOperation;
 import biomine.bmvis2.ui.GraphControls;
 
 import javax.swing.*;

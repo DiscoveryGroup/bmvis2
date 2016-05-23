@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,16 +32,18 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
 
 import biomine.bmvis2.VisualEdge;
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualNode;
 
-public class EdgeGoodnessHider implements GraphOperation{
-	
+public class EdgeGoodnessHider implements GraphOperation {
+
 	private double limit=0;
-	
+
 	public void doOperation(VisualGraph g) throws GraphOperationException {
 		HashSet<VisualEdge> hiddenEdges = new HashSet<VisualEdge>();
 		hiddenEdges.addAll(g.getHiddenEdges());
@@ -72,8 +74,8 @@ public class EdgeGoodnessHider implements GraphOperation{
 		for(VisualEdge e:graph.getAllEdges()){
 			maxEdge = Math.max(maxEdge,e.getGoodness());
 		}
-		
-		
+
+
 		final int scale = 100;
 		final JSlider limitSlider =  new JSlider();
 		limitSlider.setMinimum(0);
@@ -82,7 +84,7 @@ public class EdgeGoodnessHider implements GraphOperation{
 		final JTextField limitText=new JTextField();
 		limitText.setEditable(false);
 		limitText.setText(""+limit);
-		
+
 		limitSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				limit = limitSlider.getValue()/(double)scale;
@@ -90,8 +92,8 @@ public class EdgeGoodnessHider implements GraphOperation{
 				v.settingsChanged(false);
 			}
 		});
-		
-		
+
+
 		JPanel ret = new JPanel();
 		GridBagLayout bag = new GridBagLayout();
 		ret.setLayout(bag);
@@ -119,7 +121,7 @@ public class EdgeGoodnessHider implements GraphOperation{
 		ret.put("limit",limit);
 		return ret;
 	}
-	
+
 	public void fromJSON(JSONObject o) throws Exception {
 		limit = (Double)o.get("limit");
 	}

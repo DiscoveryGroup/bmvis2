@@ -18,12 +18,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
-import biomine.bmvis2.VisualGraph;
+import biomine.bmvis2.pipeline.GraphOperation;
 
-public interface EdgeHiderOperation extends GraphOperation {
-    public long getTargetHiddenEdges();
-    public void setTargetHiddenEdges(long target);
-    public void setCurrentGraph(VisualGraph graph);
+public abstract class StructuralOperation implements GraphOperation {
+
 }

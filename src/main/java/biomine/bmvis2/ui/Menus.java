@@ -46,6 +46,7 @@ import biomine.bmvis2.*;
 import biomine.bmvis2.help.Help;
 import biomine.bmvis2.pipeline.*;
 import biomine.bmvis2.pipeline.GraphOperation.GraphOperationException;
+import biomine.bmvis2.pipeline.operations.ManualGroupOperation;
 import biomine.bmvis2.pipeline.sources.GraphSource;
 import biomine.bmvis2.pipeline.sources.QueryGraphSource;
 import biomine.bmvis2.utils.FileFilters;

@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -30,6 +30,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
 
 import biomine.bmvis2.GraphCache;
@@ -39,7 +41,7 @@ import biomine.bmvis2.VisualNode;
 import biomine.bmvis2.VisualGraph.Change;
 import biomine.bmvis2.algorithms.ProbDijkstra;
 
-public class RepresentiveHighlightOperation implements GraphOperation{
+public class RepresentiveHighlightOperation implements GraphOperation {
 
 	private int numberOfNodes=0;
 	private Color hlColor = Color.green;

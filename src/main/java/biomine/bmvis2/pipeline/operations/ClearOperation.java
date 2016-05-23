@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
 import java.util.Collections;
 
@@ -26,13 +26,15 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import biomine.bmvis2.Logging;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
 
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualNode;
 import biomine.bmvis2.color.DefaultNodeColoring;
 
-public class ClearOperation implements GraphOperation{
+public class ClearOperation implements GraphOperation {
 	public void doOperation(VisualGraph g) throws GraphOperationException {
 		DefaultNodeColoring col = new DefaultNodeColoring();
 		Logging.debug("graph_operation", "ClearOperation.doOperation()");

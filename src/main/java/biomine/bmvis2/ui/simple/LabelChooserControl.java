@@ -22,8 +22,8 @@ package biomine.bmvis2.ui.simple;
 
 import biomine.bmvis2.LabeledItem;
 import biomine.bmvis2.Logging;
-import biomine.bmvis2.pipeline.EdgeLabelOperation;
-import biomine.bmvis2.pipeline.NodeLabelOperation;
+import biomine.bmvis2.pipeline.operations.EdgeLabelOperation;
+import biomine.bmvis2.pipeline.operations.NodeLabelOperation;
 import biomine.bmvis2.pipeline.Pipeline;
 import biomine.bmvis2.utils.StringUtils;
 

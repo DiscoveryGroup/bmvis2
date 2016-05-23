@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,22 +20,31 @@
 
 package biomine.bmvis2;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.util.*;
-
-import javax.swing.plaf.basic.BasicLabelUI;
-
 import biomine.bmvis2.color.ColorPalette;
 import biomine.bmvis2.color.EdgeColoring;
 
-/**
- * Edge used in VisualGraph. Contains methods.
- *
- * @author alhartik
- */
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+
+
 public class VisualEdge extends LabeledItem {
     public enum WeightType {PROBABILISTIC, FLOW, WEIGHT}
+
+    // Contains the names of the extra attributes that should be shown in addition to edge type.
+    private ArrayList<String> extraLabels = new ArrayList<>();
+
+    // If set to false, edge type is not rendered. This is useful when there is only one edge type.
+    private boolean showEdgeType = true;
+
+    private Collection<Weight> weights = new HashSet<Weight>();
+    private VisualNode from;
+    private VisualNode to;
+    private String type;
+    private boolean symmetric;
+
 
     public class Weight {
         public WeightType type;
@@ -51,12 +60,6 @@ public class VisualEdge extends LabeledItem {
         }
     }
 
-    private Collection<Weight> weights = new HashSet<Weight>();
-
-    private VisualNode from;
-    private VisualNode to;
-    private String type;
-    private boolean symmetric;
 
     private void init(VisualNode fr, VisualNode t, double goodness,
                       boolean symmetric, String type) {
@@ -107,7 +110,6 @@ public class VisualEdge extends LabeledItem {
     }
 
     public void paint(Graphics2D g) {
-
         if (this.isHighlighted()) {
             g.setColor(Color.green);
         }
@@ -115,16 +117,6 @@ public class VisualEdge extends LabeledItem {
 
         super.paint(g);
     }
-
-
-    /*
-      * public boolean equals(Object o){ if(!(o instanceof VisualEdge))return
-      * false; VisualEdge e = (VisualEdge)o; return from.equals(e.from)&&
-      * to.equals(e.to);
-      *
-      * } public int hashCode(){ int x = to.hashCode(); return
-      * from.hashCode()^(x<<16+x>>16); }
-      */
 
     public final VisualNode getOther(VisualNode n) {
         if (n == from)
@@ -191,12 +183,6 @@ public class VisualEdge extends LabeledItem {
         return edgeRenderer;
     }
 
-    /*
-      * public void setLabels(String[] s){ String[] s2 = new String[s.length+1];
-      * s2[0]=getType(); for(int i=0;i<s.length;i++) s2[i+1]=s[i];
-      * super.setLabels(s2); }
-      */
-
     public void setType(String type) {
         this.type = type;
         updateLabels();
@@ -239,24 +225,16 @@ public class VisualEdge extends LabeledItem {
     private static EdgeRenderer edgeRenderer = new BezierEdgeRenderer();
     private static EdgeColoring edgeColoring = null;
 
-    public static EdgeColoring getColoring() {
-        return edgeColoring;
-    }
-
-    public static void setColoring(EdgeColoring edgeColoring) {
-        VisualEdge.edgeColoring = edgeColoring;
-    }
-
-    /* LABELS */
-    private ArrayList<String> extraLabels = new ArrayList<String>();
-
     private void updateLabels() {
-        ArrayList<String> labels = new ArrayList<String>();
-        try {
-            labels.add(this.getType().replace("_", " "));
-        } catch (Exception e) {
-            Logging.warning("graph_drawing", "Error while adding type label for edge " + this);
-            e.printStackTrace();
+        ArrayList<String> labels = new ArrayList<>();
+
+        if (showEdgeType) {
+            try {
+                labels.add(this.getType().replace("_", " "));
+            } catch (Exception e) {
+                Logging.warning("graph_drawing", "Error while adding type label for edge " + this);
+                e.printStackTrace();
+            }
         }
 
         labels.addAll(extraLabels);
@@ -264,11 +242,16 @@ public class VisualEdge extends LabeledItem {
     }
 
     public void setExtraLabels(Collection<String> el) {
-        extraLabels = new ArrayList<String>(el);
+        extraLabels = new ArrayList<>(el);
         updateLabels();
     }
 
-    public List<String> getExtraLabels() {
-        return Collections.unmodifiableList(extraLabels);
+    /**
+     * If set to false, hide edge type. Useful when all the edges are of the same type and the
+     * graph is hard to read.
+     */
+    public void setShowEdgeType(boolean showEdgeType) {
+        this.showEdgeType = showEdgeType;
+        updateLabels();
     }
 }

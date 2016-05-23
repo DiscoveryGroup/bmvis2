@@ -29,12 +29,12 @@ import java.util.*;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
-import biomine.bmgraph.BMEdge;
 import biomine.bmgraph.BMGraph;
 import biomine.bmgraph.BMNode;
 import biomine.bmvis2.*;
 import biomine.bmvis2.layout.InitialLayout;
 import biomine.bmvis2.pipeline.GraphOperation.GraphOperationException;
+import biomine.bmvis2.pipeline.operations.*;
 import biomine.bmvis2.pipeline.sources.GraphSource;
 import biomine.bmvis2.pipeline.sources.StreamGraphSource;
 import biomine.bmvis2.ui.GraphControls;

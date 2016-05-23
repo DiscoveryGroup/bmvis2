@@ -26,12 +26,11 @@ import biomine.bmvis2.color.NodeColoring;
 import biomine.bmvis2.color.NodeGraderColoring;
 import biomine.bmvis2.group.NodeAttributeGrader;
 import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.NodeColoringOperation;
+import biomine.bmvis2.pipeline.operations.NodeColoringOperation;
 import biomine.bmvis2.pipeline.Pipeline;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

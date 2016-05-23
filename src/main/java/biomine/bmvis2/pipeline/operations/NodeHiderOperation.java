@@ -18,7 +18,9 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
+
+import biomine.bmvis2.pipeline.GraphOperation;
 
 public interface NodeHiderOperation extends GraphOperation {
     public long getTargetHiddenNodes();

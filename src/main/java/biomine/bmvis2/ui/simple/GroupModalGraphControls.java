@@ -27,15 +27,14 @@ import biomine.bmvis2.edgesimplification.KappaSimplifier;
 import biomine.bmvis2.edgesimplification.SimplificationUtils;
 import biomine.bmvis2.edgesimplification.XreosSimplifier;
 import biomine.bmvis2.pipeline.*;
+import biomine.bmvis2.pipeline.operations.*;
 import biomine.bmvis2.subgraph.SuggestionPanel;
 import biomine.bmvis2.ui.GraphControls;
 
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.swing.text.Document;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.BreakIterator;
 import java.util.*;
 
 public class GroupModalGraphControls extends GraphControls {

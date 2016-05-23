@@ -24,7 +24,7 @@ import biomine.bmvis2.Logging;
 import biomine.bmvis2.group.Grouper;
 import biomine.bmvis2.group.GrouperList;
 import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.GrouperOperation;
+import biomine.bmvis2.pipeline.operations.GrouperOperation;
 import biomine.bmvis2.pipeline.Pipeline;
 
 import javax.swing.*;

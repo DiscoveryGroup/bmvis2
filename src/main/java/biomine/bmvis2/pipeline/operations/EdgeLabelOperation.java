@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline;
+package biomine.bmvis2.pipeline.operations;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,6 +32,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -39,8 +41,10 @@ import biomine.bmgraph.BMEdge;
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualEdge;
 
+
 public class EdgeLabelOperation implements GraphOperation {
     private HashSet<String> enabledLabels = new HashSet<String>();
+    private boolean showEdgeTypes = true;
 
     public void doOperation(VisualGraph g) throws GraphOperationException {
         Set<String> avail = g.getAvailableEdgeLabels();
@@ -56,7 +60,8 @@ public class EdgeLabelOperation implements GraphOperation {
                             labels.add(lbl.substring(0, 3) + ": " + l);
                     }
                 }
-	            n.setExtraLabels(labels);
+                n.setExtraLabels(labels);
+                n.setShowEdgeType(showEdgeTypes);
             }
         }
     }
@@ -78,23 +83,44 @@ public class EdgeLabelOperation implements GraphOperation {
         c.weightx = 1;
         c.weighty = 0;
         c.gridy = 0;
-        final Set<String> avail = graph.getAvailableEdgeLabels();
 
-        for (final String str : avail) {
-            final JCheckBox box = new JCheckBox();
-            box.setSelected(enabledLabels.contains(str));
-            box.setAction(new AbstractAction(str) {
-                public void actionPerformed(ActionEvent arg0) {
-                    if (box.isSelected() != enabledLabels.contains(str)) {
-                        if (box.isSelected())
-                            enabledLabels.add(str);
-                        else
-                            enabledLabels.remove(str);
+        // First a checkbox for type
+        final JCheckBox typeCheckbox = new JCheckBox();
+        typeCheckbox.setSelected(showEdgeTypes);
+        typeCheckbox.setAction(new AbstractAction("type") {
+            public void actionPerformed(ActionEvent event) {
+                if (typeCheckbox.isSelected() != showEdgeTypes) {
+                    if (typeCheckbox.isSelected()) {
+                        showEdgeTypes = true;
+                    } else {
+                        showEdgeTypes = false;
+                    }
+                    v.settingsChanged(false);
+                }
+
+            }
+        });
+        ret.add(typeCheckbox, c);
+        c.gridy++;
+
+        // Then for other attributes
+        final Set<String> availableLabels = graph.getAvailableEdgeLabels();
+        for (final String label : availableLabels) {
+            final JCheckBox cb = new JCheckBox();
+            cb.setSelected(enabledLabels.contains(label));
+            cb.setAction(new AbstractAction(label) {
+                public void actionPerformed(ActionEvent event) {
+                    if (cb.isSelected() != enabledLabels.contains(label)) {
+                        if (cb.isSelected()) {
+                            enabledLabels.add(label);
+                        } else {
+                            enabledLabels.remove(label);
+                        }
                         v.settingsChanged(false);
                     }
                 }
             });
-            ret.add(box, c);
+            ret.add(cb, c);
             c.gridy++;
         }
 
@@ -114,6 +140,7 @@ public class EdgeLabelOperation implements GraphOperation {
         JSONArray enabled = new JSONArray();
         enabled.addAll(enabledLabels);
         ret.put("enabled", enabled);
+        ret.put("showTypes", showEdgeTypes);
         return ret;
     }
 
@@ -121,6 +148,7 @@ public class EdgeLabelOperation implements GraphOperation {
         JSONArray enabled = (JSONArray) o.get("enabled");
         enabledLabels.clear();
         enabledLabels.addAll(enabled);
+        showEdgeTypes = (Boolean) o.get("showTypes");
     }
 
     public HashSet<String> getEnabledLabels() {
