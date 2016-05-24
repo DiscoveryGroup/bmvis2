@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -24,12 +24,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.QuadCurve2D;
 
+
 /**
  * Draws bezier-curves for edges.
- *
- * @author alhartik
  */
-
 public class BezierEdgeRenderer extends EdgeRenderer {
     private VisualEdge edge;
     private QuadCurve2D curve;
@@ -63,8 +61,6 @@ public class BezierEdgeRenderer extends EdgeRenderer {
 
     /**
      * Initializes object to draw given edge.
-     *
-     * @param e
      */
     private void updateCurve(VisualEdge e) {
         Vec2 fromPos = e.getFrom().getVisibleAncestor().getPos();
@@ -151,5 +147,4 @@ public class BezierEdgeRenderer extends EdgeRenderer {
             g.fill(arrowheadPath);
         }
     }
-
 }

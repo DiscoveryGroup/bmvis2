@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -22,16 +22,15 @@ package biomine.bmvis2;
 
 import java.util.Collection;
 
+
 /**
  * Interface to observe changes in graphs.
- * @author alhartik
- *
  */
 public interface GraphObserver {
-	public void graphStructureChanged(VisualGraph g);
-	public void pointsOfInterestsChanged(VisualGraph g);
-	public void visibleNodesChanged(VisualGraph g);
-	public void selectionChanged(VisualGraph g);
-	public void colorsChanged(VisualGraph g);
-    public void zoomRequested(VisualGraph g, Collection<LayoutItem> items);
+	void graphStructureChanged(VisualGraph g);
+	void pointsOfInterestsChanged(VisualGraph g);
+	void visibleNodesChanged(VisualGraph g);
+	void selectionChanged(VisualGraph g);
+	void colorsChanged(VisualGraph g);
+    void zoomRequested(VisualGraph g, Collection<LayoutItem> items);
 }

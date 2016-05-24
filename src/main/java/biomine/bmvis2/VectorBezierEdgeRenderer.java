@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,22 +20,23 @@
 
 package biomine.bmvis2;
 
-import biomine.bmvis2.algorithms.TwoPhase;
 import biomine.bmvis2.ui.GraphVisualizer;
 
-import javax.swing.*;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Paint;
 import java.awt.geom.GeneralPath;
-import java.awt.geom.Line2D;
 import java.awt.geom.QuadCurve2D;
 
-/**
- * @author ahinkka
- */
-public class VectorBezierEdgeRenderer extends EdgeRenderer {
-    private VisualEdge edge;
+
+class VectorBezierEdgeRenderer extends EdgeRenderer {
     private QuadCurve2D curve;
 
     private boolean gradientColor = false;
@@ -43,8 +44,6 @@ public class VectorBezierEdgeRenderer extends EdgeRenderer {
 
     /**
      * Initializes object to draw given edge.
-     *
-     * @param e
      */
     private void updateCurve(VisualEdge e) {
         Vec2 fromPos = e.getFrom().getVisibleAncestor().getPos();
@@ -60,7 +59,7 @@ public class VectorBezierEdgeRenderer extends EdgeRenderer {
         curve.setCurve(fromPos.x, fromPos.y, px, py, toPos.x, toPos.y);
     }
 
-    public GeneralPath getVectorShape(VisualEdge e) {
+    private GeneralPath getVectorShape(VisualEdge e) {
         Vec2 fromPos = e.getFrom().getVisibleAncestor().getPos();
         Vec2 toPos = e.getTo().getVisibleAncestor().getPos();
 
@@ -107,11 +106,11 @@ public class VectorBezierEdgeRenderer extends EdgeRenderer {
             // g.draw(p);
 
             if (this.gradientColor) {
-                Paint gradient = new GradientPaint(new Float(fromPos.toPoint().getX()),
-                        new Float(fromPos.toPoint().getY()),
+                Paint gradient = new GradientPaint((float) fromPos.toPoint().getX(),
+                        (float) fromPos.toPoint().getY(),
                         Color.WHITE,
-                        new Float(toPos.toPoint().getX()),
-                        new Float(toPos.toPoint().getY()),
+                        (float) toPos.toPoint().getX(),
+                        (float) toPos.toPoint().getY(),
                         g.getColor());
                 g.setPaint(gradient);
             }

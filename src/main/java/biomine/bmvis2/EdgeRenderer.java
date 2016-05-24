@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -22,17 +22,16 @@ package biomine.bmvis2;
 
 import biomine.bmvis2.ui.GraphVisualizer;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 
 public abstract class EdgeRenderer {
-    private VisualEdge edge;
-
     /**
      * Draw's the edge.
-     *
-     * @param graphics
-     * @param edge
      */
     public abstract void drawEdge(Graphics2D graphics, VisualEdge edge);
 

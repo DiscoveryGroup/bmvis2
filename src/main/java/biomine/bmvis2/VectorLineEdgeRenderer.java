@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -23,12 +23,8 @@ package biomine.bmvis2;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
 
-/**
- * @author ahinkka
- */
+
 public class VectorLineEdgeRenderer extends EdgeRenderer {
     public void drawEdge(Graphics2D g, VisualEdge edge) {
         VisualNode fromAnc = edge.getFrom().getVisibleAncestor();
