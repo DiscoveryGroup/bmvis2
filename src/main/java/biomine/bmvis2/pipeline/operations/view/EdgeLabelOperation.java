@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,26 +20,20 @@
 
 package biomine.bmvis2.pipeline.operations.view;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.swing.AbstractAction;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-
+import biomine.bmgraph.BMEdge;
+import biomine.bmvis2.VisualEdge;
+import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.pipeline.GraphOperation;
 import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import biomine.bmgraph.BMEdge;
-import biomine.bmvis2.VisualGraph;
-import biomine.bmvis2.VisualEdge;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class EdgeLabelOperation implements GraphOperation {

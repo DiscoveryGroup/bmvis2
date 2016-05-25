@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,109 +20,98 @@
 
 package biomine.bmvis2.pipeline.operations.structure;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-
-import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.SettingsChangeCallback;
-import org.json.simple.JSONObject;
-
 import biomine.bmvis2.GraphCache;
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualGraph.Change;
 import biomine.bmvis2.algorithms.TwoPhase;
 import biomine.bmvis2.edgesimplification.SimplificationUtils;
-import biomine.bmvis2.edgesimplification.Simplifier;
-import biomine.bmvis2.graphcontrols.BestPathGrader;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
+import org.json.simple.JSONObject;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class TwoPhaseExtractOperation implements GraphOperation {
 
-	private int target = 1000000;
-	
-	int oldTot = 1;
+    int oldTot = 1;
+    GraphCache<TwoPhase> gc = new GraphCache<TwoPhase>(Change.STRUCTURE, Change.POINTS_OF_INTEREST);
+    private int target = 1000000;
 
-	public TwoPhaseExtractOperation() {
-	}
-	GraphCache<TwoPhase> gc = new GraphCache<TwoPhase>(Change.STRUCTURE,Change.POINTS_OF_INTEREST);
+    public TwoPhaseExtractOperation() {
+    }
 
-	@Override
-	public void doOperation(VisualGraph g) throws GraphOperationException {
+    @Override
+    public void doOperation(VisualGraph g) throws GraphOperationException {
 
-		int tot = SimplificationUtils.countNormalEdges(g);
-		target = Math.min(target, tot);
-		
-		TwoPhase p = gc.get(g);
-		if(p==null){
-			p = new TwoPhase(g);
-			gc.put(g, p);
-		}
-		
-		p.doHiding(target);
-	}
+        int tot = SimplificationUtils.countNormalEdges(g);
+        target = Math.min(target, tot);
+
+        TwoPhase p = gc.get(g);
+        if (p == null) {
+            p = new TwoPhase(g);
+            gc.put(g, p);
+        }
+
+        p.doHiding(target);
+    }
 
 
-	@Override
-	public JComponent getSettingsComponent(final SettingsChangeCallback v,
-			VisualGraph graph) {
-		int tot = SimplificationUtils.countNormalEdges(graph);
+    @Override
+    public JComponent getSettingsComponent(final SettingsChangeCallback v,
+                                           VisualGraph graph) {
+        int tot = SimplificationUtils.countNormalEdges(graph);
 
-		if (oldTot != 0) {
-			int nt = (target * tot) / oldTot;
-			if (nt != target) {
-				target = Math.max(nt, target);
-			}
-		} else {
-			target = tot;
-		}
+        if (oldTot != 0) {
+            int nt = (target * tot) / oldTot;
+            if (nt != target) {
+                target = Math.max(nt, target);
+            }
+        } else {
+            target = tot;
+        }
 
-		oldTot = tot;
-		JPanel ret = new JPanel();
+        oldTot = tot;
+        JPanel ret = new JPanel();
 
-		final JSlider sl = new JSlider(0, tot, Math.min(target, tot));
-		sl.addChangeListener(new ChangeListener() {
+        final JSlider sl = new JSlider(0, tot, Math.min(target, tot));
+        sl.addChangeListener(new ChangeListener() {
 
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				if (target == sl.getValue())
-					return;
-				target = sl.getValue();
-				v.settingsChanged(false);
+            @Override
+            public void stateChanged(ChangeEvent arg0) {
+                if (target == sl.getValue())
+                    return;
+                target = sl.getValue();
+                v.settingsChanged(false);
 
-			}
-		});
-		ret.setLayout(new BoxLayout(ret, BoxLayout.Y_AXIS));
-		ret.add(sl);
+            }
+        });
+        ret.setLayout(new BoxLayout(ret, BoxLayout.Y_AXIS));
+        ret.add(sl);
 
-		return ret;
-	}
+        return ret;
+    }
 
-	@Override
-	public String getTitle() {
-		return "Two phase hider";
-	}	
+    @Override
+    public String getTitle() {
+        return "Two phase hider";
+    }
 
-	@Override
-	public String getToolTip() {
-		return null;
-	}
+    @Override
+    public String getToolTip() {
+        return null;
+    }
 
-	@Override
-	public void fromJSON(JSONObject o) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		target = ((Long) o.get("target")).intValue();
-	}
+    @Override
+    public void fromJSON(JSONObject o) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        target = ((Long) o.get("target")).intValue();
+    }
 
-	@Override
-	public JSONObject toJSON() {
-		JSONObject ret = new JSONObject();
-		ret.put("target", target);
-		return ret;
-	}
+    @Override
+    public JSONObject toJSON() {
+        JSONObject ret = new JSONObject();
+        ret.put("target", target);
+        return ret;
+    }
 }

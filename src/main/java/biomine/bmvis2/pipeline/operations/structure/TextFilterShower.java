@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -33,11 +33,12 @@ import javax.swing.event.DocumentListener;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author ahinkka
- */
 public class TextFilterShower implements GraphOperation {
     String filter = "";
+
+    public TextFilterShower(String filter) {
+        this.filter = filter;
+    }
 
     public String getTitle() {
         return "Filter nodes and edges by text";
@@ -47,16 +48,11 @@ public class TextFilterShower implements GraphOperation {
         return null;
     }
 
-    public TextFilterShower(String filter) {
-        this.filter = filter;
-    }
-
     /**
      * TODO: how should this really work?  Should the nodes be made POIs instead of showing them and their neighbors?
      *
      * @param graph Processable graph
      * @throws biomine.bmvis2.pipeline.GraphOperation.GraphOperationException
-     *
      */
     public void doOperation(VisualGraph graph) throws GraphOperationException {
         if (this.getFilter().equals(""))
@@ -137,11 +133,11 @@ public class TextFilterShower implements GraphOperation {
         this.filter = (String) o.get("filter");
     }
 
-    public void setFilter(String currentFilter) {
-        this.filter = currentFilter;
-    }
-
     public String getFilter() {
         return this.filter;
+    }
+
+    public void setFilter(String currentFilter) {
+        this.filter = currentFilter;
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,16 +20,14 @@
 
 package biomine.bmvis2.pipeline.operations.structure;
 
-import javax.swing.JComponent;
-
-import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.SettingsChangeCallback;
-import biomine.bmvis2.pipeline.operations.structure.StructuralOperation;
-import org.json.simple.JSONObject;
-
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.group.Grouper;
 import biomine.bmvis2.group.GrouperList;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
+import org.json.simple.JSONObject;
+
+import javax.swing.*;
 
 public class GrouperOperation extends StructuralOperation implements GraphOperation {
     private Grouper grouper;

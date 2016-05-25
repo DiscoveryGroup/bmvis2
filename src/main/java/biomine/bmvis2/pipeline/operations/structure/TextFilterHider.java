@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -37,16 +37,16 @@ import java.util.Set;
 public class TextFilterHider implements GraphOperation {
     String filter = "";
 
+    public TextFilterHider(String filter) {
+        this.filter = filter;
+    }
+
     public String getTitle() {
         return "Filter nodes and edges by text";
     }
 
     public String getToolTip() {
         return null;
-    }
-
-    public TextFilterHider(String filter) {
-        this.filter = filter;
     }
 
     /**
@@ -137,11 +137,11 @@ public class TextFilterHider implements GraphOperation {
         this.filter = (String) o.get("filter");
     }
 
-    public void setFilter(String currentFilter) {
-        this.filter = currentFilter;
-    }
-
     public String getFilter() {
         return this.filter;
+    }
+
+    public void setFilter(String currentFilter) {
+        this.filter = currentFilter;
     }
 }

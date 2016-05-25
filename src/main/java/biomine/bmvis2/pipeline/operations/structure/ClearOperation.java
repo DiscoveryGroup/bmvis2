@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,51 +20,48 @@
 
 package biomine.bmvis2.pipeline.operations.structure;
 
-import java.util.Collections;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-
 import biomine.bmvis2.Logging;
+import biomine.bmvis2.VisualGraph;
+import biomine.bmvis2.VisualNode;
+import biomine.bmvis2.color.DefaultNodeColoring;
 import biomine.bmvis2.pipeline.GraphOperation;
 import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
 
-import biomine.bmvis2.VisualGraph;
-import biomine.bmvis2.VisualNode;
-import biomine.bmvis2.color.DefaultNodeColoring;
+import javax.swing.*;
+import java.util.Collections;
 
 public class ClearOperation implements GraphOperation {
-	public void doOperation(VisualGraph g) throws GraphOperationException {
-		DefaultNodeColoring col = new DefaultNodeColoring();
-		Logging.debug("graph_operation", "ClearOperation.doOperation()");
-		for(VisualNode n:g.getAllNodes()){
-			n.setExtraLabels(Collections.EMPTY_LIST);
-			n.setBaseColor(col.getFillColor(n));
-		}
-		g.setHiddenEdges(Collections.EMPTY_LIST);
-		g.setHiddenNodes(Collections.EMPTY_LIST);
-	}
+    public void doOperation(VisualGraph g) throws GraphOperationException {
+        DefaultNodeColoring col = new DefaultNodeColoring();
+        Logging.debug("graph_operation", "ClearOperation.doOperation()");
+        for (VisualNode n : g.getAllNodes()) {
+            n.setExtraLabels(Collections.EMPTY_LIST);
+            n.setBaseColor(col.getFillColor(n));
+        }
+        g.setHiddenEdges(Collections.EMPTY_LIST);
+        g.setHiddenNodes(Collections.EMPTY_LIST);
+    }
 
-	public JComponent getSettingsComponent(SettingsChangeCallback v,
-			VisualGraph graph) {
-		return new JLabel("This should not be visible");
-	}
+    public JComponent getSettingsComponent(SettingsChangeCallback v,
+                                           VisualGraph graph) {
+        return new JLabel("This should not be visible");
+    }
 
-	public String getTitle() {
-		return "clear op: should be hidden";
-	}
-		
-	public String getToolTip() {
-		
-		return null;
-	}
+    public String getTitle() {
+        return "clear op: should be hidden";
+    }
 
-	public void fromJSON(JSONObject o) throws Exception {
-	}
+    public String getToolTip() {
 
-	public JSONObject toJSON() {
-		return new JSONObject();
-	}
+        return null;
+    }
+
+    public void fromJSON(JSONObject o) throws Exception {
+    }
+
+    public JSONObject toJSON() {
+        return new JSONObject();
+    }
 
 }

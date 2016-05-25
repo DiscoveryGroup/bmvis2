@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -23,6 +23,7 @@ package biomine.bmvis2.pipeline.operations.structure;
 import biomine.bmvis2.pipeline.GraphOperation;
 
 public interface NodeHiderOperation extends GraphOperation {
-    public long getTargetHiddenNodes();
-    public void setTargetHiddenNodes(long target);
+    long getTargetHiddenNodes();
+
+    void setTargetHiddenNodes(long target);
 }

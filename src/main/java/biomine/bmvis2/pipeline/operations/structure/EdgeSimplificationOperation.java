@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,29 +20,23 @@
 
 package biomine.bmvis2.pipeline.operations.structure;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
-
-import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import biomine.bmvis2.Logging;
-import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.SettingsChangeCallback;
-import org.json.simple.JSONObject;
-
 import biomine.bmvis2.GraphCache;
+import biomine.bmvis2.Logging;
 import biomine.bmvis2.VisualEdge;
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualGraph.Change;
 import biomine.bmvis2.edgesimplification.SimplificationUtils;
 import biomine.bmvis2.edgesimplification.Simplifier;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
+import org.json.simple.JSONObject;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 
 /**
  * Settings component of this operation should not run the pipeline.  This
@@ -51,11 +45,10 @@ import biomine.bmvis2.edgesimplification.Simplifier;
  * for slider use.
  */
 public class EdgeSimplificationOperation implements GraphOperation, EdgeHiderOperation {
-    private long target = 1000000; // visible edge count target
-    JLabel costLabel = new JLabel();
     public Simplifier simplifier;
+    JLabel costLabel = new JLabel();
     int oldEdgeCount = 1;
-
+    private long target = 1000000; // visible edge count target
     private VisualGraph graph;
     // We need to keep track of the current graph here to be able to hide and show stuff without running the whole
     // pipeline.

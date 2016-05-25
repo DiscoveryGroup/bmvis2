@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -21,7 +21,6 @@
 package biomine.bmvis2.pipeline.operations.structure;
 
 import biomine.bmvis2.VisualGraph;
-import biomine.bmvis2.VisualNode;
 import biomine.bmvis2.pipeline.GraphOperation;
 import biomine.bmvis2.pipeline.SettingsChangeCallback;
 import org.json.simple.JSONObject;
@@ -43,8 +42,6 @@ public class AllHider implements GraphOperation {
 
     public void doOperation(VisualGraph g) throws GraphOperationException {
         g.hideNodes(g.getAllNodes());
-        // g.unHideNode(g.getRootNode());
-        // g.getRootNode().setOpen(true);
     }
 
     public JSONObject toJSON() {

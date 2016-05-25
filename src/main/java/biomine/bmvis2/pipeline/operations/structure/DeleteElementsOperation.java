@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -40,7 +40,7 @@ import java.util.Set;
  * now.  The implementation of node deletions would probably mean introducing
  * the concept of slow operations in Pipeline (and actually forcibly removing
  * nodes after the graph is built but before any groupers are run).
- *
+ * <p>
  * The other, less invasive operation would be HideElementsOperation which
  * would just hide the nodes after all other elements are run.
  */
@@ -58,7 +58,7 @@ public class DeleteElementsOperation implements GraphOperation {
 
 
     public void doOperation(VisualGraph graph) throws GraphOperationException {
-                HashMap<String, VisualNode> allNodes = new HashMap<String, VisualNode>();
+        HashMap<String, VisualNode> allNodes = new HashMap<String, VisualNode>();
         for (VisualNode node : graph.getAllNodes())
             allNodes.put(node.getId(), node);
 
@@ -66,7 +66,7 @@ public class DeleteElementsOperation implements GraphOperation {
         for (VisualEdge edge : graph.getAllEdges())
             allEdges.put(edge.toString(), edge);
 
-        for (String nodeId: this.deletedNodes) {
+        for (String nodeId : this.deletedNodes) {
             if (allNodes.containsKey(nodeId))
                 graph.deleteNode(allNodes.get(nodeId));
             else

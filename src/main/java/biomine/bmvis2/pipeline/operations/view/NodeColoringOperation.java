@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,63 +20,59 @@
 
 package biomine.bmvis2.pipeline.operations.view;
 
-import java.util.Map;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-
-import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.SettingsChangeCallback;
-import org.json.simple.JSONObject;
-
 import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualNode;
 import biomine.bmvis2.color.Colorings;
 import biomine.bmvis2.color.DefaultNodeColoring;
 import biomine.bmvis2.color.NodeColoring;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
+import org.json.simple.JSONObject;
+
+import javax.swing.*;
+import java.util.Map;
 
 public class NodeColoringOperation implements GraphOperation {
 
-	private NodeColoring coloring;
+    String coloringName = "";
+    private NodeColoring coloring;
 
-	public NodeColoringOperation(NodeColoring col){
-		coloring = col;
-		if(coloringName.length()==0)
-			coloringName = col.getClass().getName();
-	}
+    public NodeColoringOperation(NodeColoring col) {
+        coloring = col;
+        if (coloringName.length() == 0)
+            coloringName = col.getClass().getName();
+    }
 
-	public void doOperation(VisualGraph g) throws GraphOperationException {
-		//g.setNodeColoring(coloring);
-		NodeColoring usedColoring =  coloring;
-		if(coloring==null)
-			usedColoring= new DefaultNodeColoring();
+    public void doOperation(VisualGraph g) throws GraphOperationException {
+        //g.setNodeColoring(coloring);
+        NodeColoring usedColoring = coloring;
+        if (coloring == null)
+            usedColoring = new DefaultNodeColoring();
 
-		for(VisualNode n:g.getAllNodes()){
-			////dont override colors set by other operations.
-			//if(n.getBaseColor()==null)
-			n.setBaseColor(usedColoring.getFillColor(n));
-		}
-	}
+        for (VisualNode n : g.getAllNodes()) {
+            ////dont override colors set by other operations.
+            //if(n.getBaseColor()==null)
+            n.setBaseColor(usedColoring.getFillColor(n));
+        }
+    }
 
-	String coloringName="";
+    public String getName() {
+        return coloringName;
+    }
 
-	public String getName() {
-		return coloringName;
-	}
+    public void setName(String name) {
+        this.coloringName = name;
+    }
 
-	public String getToolTip() {
-		return null;
-	}
+    public String getToolTip() {
+        return null;
+    }
 
-	public void setName(String name) {
-		this.coloringName = name;
-	}
+    public JComponent getSettingsComponent(final SettingsChangeCallback v,
+                                           VisualGraph graph) {
 
-	public JComponent getSettingsComponent(final SettingsChangeCallback v,
-			VisualGraph graph) {
-
-		return new JLabel(coloring.toString());
-		//return new JLabel(coloringName);
+        return new JLabel(coloring.toString());
+        //return new JLabel(coloringName);
 //		JPanel ret = new JPanel();
 //		ret.setLayout(new GridBagLayout());
 //		GridBagConstraints c  = new GridBagConstraints();
@@ -111,27 +107,28 @@ public class NodeColoringOperation implements GraphOperation {
 //		}
 //		
 //		return ret;
-	}
+    }
 
 
-	public String getTitle() {
-		return "Node colors: "+getName();
-	}
+    public String getTitle() {
+        return "Node colors: " + getName();
+    }
 
-	/* JSON  */
-	public JSONObject toJSON() {
-		JSONObject ret = new JSONObject();
-		ret.put("color", coloringName);
-		return ret;
-	}
-	public void fromJSON(JSONObject o) throws Exception {
-		String str = o.get("color").toString();
-		Map<String,NodeColoring> cm = Colorings.getNodeColorings();
-		this.coloring = cm.get(str);
-		this.coloringName=str;
-	}
+    /* JSON  */
+    public JSONObject toJSON() {
+        JSONObject ret = new JSONObject();
+        ret.put("color", coloringName);
+        return ret;
+    }
 
-    public String getColoringSimpleUIName () {
+    public void fromJSON(JSONObject o) throws Exception {
+        String str = o.get("color").toString();
+        Map<String, NodeColoring> cm = Colorings.getNodeColorings();
+        this.coloring = cm.get(str);
+        this.coloringName = str;
+    }
+
+    public String getColoringSimpleUIName() {
         return this.coloring.getByName();
     }
 

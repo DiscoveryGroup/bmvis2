@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 University of Helsinki.
+ * Copyright 2012-2016 University of Helsinki.
  *
  * This file is part of BMVis².
  *
@@ -20,8 +20,19 @@
 
 package biomine.bmvis2.pipeline.operations.structure;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import biomine.bmvis2.Logging;
+import biomine.bmvis2.VisualGraph;
+import biomine.bmvis2.VisualNode;
+import biomine.bmvis2.color.NodeGraderColoring;
+import biomine.bmvis2.graphcontrols.BestPathGrader;
+import biomine.bmvis2.pipeline.GraphOperation;
+import biomine.bmvis2.pipeline.SettingsChangeCallback;
+import org.json.simple.JSONObject;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -29,33 +40,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 
-import javax.swing.AbstractAction;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import biomine.bmvis2.Logging;
-import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.SettingsChangeCallback;
-import org.json.simple.JSONObject;
-
-import biomine.bmvis2.VisualGraph;
-import biomine.bmvis2.VisualNode;
-import biomine.bmvis2.color.NodeGraderColoring;
-import biomine.bmvis2.graphcontrols.BestPathGrader;
-
 public class BestPathHiderOperation implements GraphOperation, NodeHiderOperation {
+    public final static long INITIAL_TARGET = 100000;
     private BestPathGrader grader;
     private long target;
     private long oldCount = 1;
     private boolean matchColoring = false;
     private boolean showLabel = false;
-    public final static long INITIAL_TARGET = 100000;
 
     public BestPathHiderOperation() {
         this.grader = new BestPathGrader();
@@ -228,11 +219,11 @@ public class BestPathHiderOperation implements GraphOperation, NodeHiderOperatio
         return ret;
     }
 
-    public void setTargetHiddenNodes(long target) {
-        this.target = target;
-    }
-
     public long getTargetHiddenNodes() {
         return this.target;
+    }
+
+    public void setTargetHiddenNodes(long target) {
+        this.target = target;
     }
 }
