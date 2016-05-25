@@ -25,7 +25,7 @@ import biomine.bmvis2.VisualGraph;
 import biomine.bmvis2.VisualNode;
 import biomine.bmvis2.pipeline.GraphOperation;
 import biomine.bmvis2.pipeline.SettingsChangeCallback;
-import biomine.bmvis2.pipeline.operations.StructuralOperation;
+import biomine.bmvis2.pipeline.operations.structure.StructuralOperation;
 import org.json.simple.JSONObject;
 
 import javax.swing.*;

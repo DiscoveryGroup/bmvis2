@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline.operations;
+package biomine.bmvis2.pipeline.operations.structure;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +28,7 @@ import javax.swing.JComponent;
 import javax.swing.JTextArea;
 
 import biomine.bmvis2.pipeline.SettingsChangeCallback;
+import biomine.bmvis2.pipeline.operations.structure.GrouperOperation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

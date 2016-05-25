@@ -27,16 +27,16 @@ import java.util.Collections;
 import biomine.bmvis2.color.GroupColoring;
 import biomine.bmvis2.edgesimplification.KappaSimplifier;
 import biomine.bmvis2.edgesimplification.XreosSimplifier;
-import biomine.bmvis2.pipeline.operations.BestPathHiderOperation;
-import biomine.bmvis2.pipeline.operations.EdgeGoodnessHider;
-import biomine.bmvis2.pipeline.operations.EdgeLabelOperation;
-import biomine.bmvis2.pipeline.operations.EdgeSimplificationOperation;
-import biomine.bmvis2.pipeline.operations.KMedoidsHighlight;
-import biomine.bmvis2.pipeline.operations.NodeColoringOperation;
-import biomine.bmvis2.pipeline.operations.NodeLabelOperation;
-import biomine.bmvis2.pipeline.operations.RepresentiveHighlightOperation;
-import biomine.bmvis2.pipeline.operations.SizeSliderOperation;
-import biomine.bmvis2.pipeline.operations.TwoPhaseExtractOperation;
+import biomine.bmvis2.pipeline.operations.structure.BestPathHiderOperation;
+import biomine.bmvis2.pipeline.operations.structure.EdgeGoodnessHider;
+import biomine.bmvis2.pipeline.operations.view.EdgeLabelOperation;
+import biomine.bmvis2.pipeline.operations.structure.EdgeSimplificationOperation;
+import biomine.bmvis2.pipeline.operations.view.KMedoidsHighlight;
+import biomine.bmvis2.pipeline.operations.view.NodeColoringOperation;
+import biomine.bmvis2.pipeline.operations.view.NodeLabelOperation;
+import biomine.bmvis2.pipeline.operations.view.RepresentiveHighlightOperation;
+import biomine.bmvis2.pipeline.operations.structure.SizeSliderOperation;
+import biomine.bmvis2.pipeline.operations.structure.TwoPhaseExtractOperation;
 
 public class GraphOperationList {
 

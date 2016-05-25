@@ -26,7 +26,7 @@ import biomine.bmvis2.color.NodeColoring;
 import biomine.bmvis2.color.NodeGraderColoring;
 import biomine.bmvis2.group.NodeAttributeGrader;
 import biomine.bmvis2.pipeline.GraphOperation;
-import biomine.bmvis2.pipeline.operations.NodeColoringOperation;
+import biomine.bmvis2.pipeline.operations.view.NodeColoringOperation;
 import biomine.bmvis2.pipeline.Pipeline;
 
 import javax.swing.*;

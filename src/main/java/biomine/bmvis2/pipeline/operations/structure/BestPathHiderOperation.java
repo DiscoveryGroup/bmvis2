@@ -18,7 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline.operations;
+package biomine.bmvis2.pipeline.operations.structure;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

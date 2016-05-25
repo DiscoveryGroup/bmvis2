@@ -18,12 +18,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package biomine.bmvis2.pipeline.operations;
+package biomine.bmvis2.pipeline.operations.structure;
 
 import javax.swing.JComponent;
 
 import biomine.bmvis2.pipeline.GraphOperation;
 import biomine.bmvis2.pipeline.SettingsChangeCallback;
+import biomine.bmvis2.pipeline.operations.structure.StructuralOperation;
 import org.json.simple.JSONObject;
 
 import biomine.bmvis2.VisualGraph;

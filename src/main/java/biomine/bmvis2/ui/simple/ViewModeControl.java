@@ -27,9 +27,9 @@ import biomine.bmvis2.color.GroupColoring;
 import biomine.bmvis2.group.GirvanNewmanClustering;
 import biomine.bmvis2.group.Grouper;
 import biomine.bmvis2.pipeline.*;
-import biomine.bmvis2.pipeline.operations.GrouperOperation;
-import biomine.bmvis2.pipeline.operations.NodeColoringOperation;
-import biomine.bmvis2.pipeline.operations.StructuralOperation;
+import biomine.bmvis2.pipeline.operations.structure.GrouperOperation;
+import biomine.bmvis2.pipeline.operations.view.NodeColoringOperation;
+import biomine.bmvis2.pipeline.operations.structure.StructuralOperation;
 import discovery.compression.kdd2011.ratio.RatioCompressionGrouper;
 
 import javax.swing.*;
